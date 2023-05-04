@@ -1,1 +1,26 @@
 GET http://localhost:4000/user/getAllUsersfasgas
+
+###
+
+POST http://localhost:4000/user/register
+Content-Type: application/json
+
+{
+  "username": "daoquang",
+  "password": "123456"
+}
+
+
+###
+
+POST http://localhost:4000/user/login
+Content-Type: application/json
+
+{
+  "username": "Antonette",
+  "password": "123456"
+}
+
+###
+
+GET http://localhost:4000/film/getAllFilms

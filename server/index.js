@@ -1,5 +1,4 @@
 const express = require('express')
-const users = require('./datas/user.json')
 const rootRouter = require('./routers/router')
 const app = express()
 
