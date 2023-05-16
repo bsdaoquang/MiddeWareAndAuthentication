@@ -1,6 +1,7 @@
 const users = require('../datas/users.json')
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
+const User = require('../models/User.js')
 
 const userService = {}
 
@@ -10,7 +11,7 @@ userService.getAllUsers = () => {
 }
 
 // Đăng ký người dùng mới
-userService.register = (resgisterPayload) => {
+userService.register = async (resgisterPayload) => {
   // Kiểm tra thông tin truyền vào
   if (!resgisterPayload.username || !resgisterPayload.password) {
     throw new Error('Invalid arguments!')
@@ -24,15 +25,15 @@ userService.register = (resgisterPayload) => {
   if (isReady.length > 0) {
     throw new Error('Tên đăng nhập đã tồn tại!')
   } else {
-    const newUser = {
+    const newUser = await User.create({
       username: resgisterPayload.username,
       password: resgisterPayload.password,
-      roles: 'Member',
-    }
+    })
 
-    users.push(newUser)
-
-    return 'Đăng tài khoản thành công!'
+    console.log({
+      username: resgisterPayload.username,
+      password: resgisterPayload.password,
+    })
   }
 }
 // Đăng ký người dùng mới
@@ -57,7 +58,7 @@ userService.login = (loginPayload) => {
     process.env.SCRETEKEY,
   )
 
-  return { token }
+  return { data: user, token }
 }
 
 module.exports = userService
